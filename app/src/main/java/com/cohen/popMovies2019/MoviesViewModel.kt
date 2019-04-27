@@ -7,7 +7,10 @@ import androidx.lifecycle.ViewModel
 import com.cohen.popMovies2019.client.*
 import com.squareup.okhttp.ResponseBody
 import retrofit.Response
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.collections.ArrayList
 
 
 class MoviesViewModel : ViewModel() {
@@ -42,8 +45,9 @@ class MoviesViewModel : ViewModel() {
         mApi = Api(cfg, httpClient)
         setItem(null)
         page.postValue(1)
+        val sdf = SimpleDateFormat("yyyy-MM-dd")
         page.observe(appCompatActivity, androidx.lifecycle.Observer {
-            mApi.getMovies(it).enqueue(mResultsCallback)
+            mApi.getMovies(it, sdf.format(Date())).enqueue(mResultsCallback)
         })
     }
 

@@ -61,14 +61,15 @@ public class Api {
         return restAdapter.create(Service.class);
     }
 
-    public Call<DiscoverResponse> getMovies(int page) throws InvalidParameterException {
+    public Call<DiscoverResponse> getMovies(int page, String today) throws InvalidParameterException {
 
         Service service = create();
 
         ArrayMap<String, String> query = new ArrayMap<>();
 
         query.put("page", String.valueOf(page));
-        query.put("sort_by", "popularity.desc");
+        query.put("sort_by", "release_date.desc");
+        query.put("release_date.lte", today);
 
         return service.movies(query);
     }

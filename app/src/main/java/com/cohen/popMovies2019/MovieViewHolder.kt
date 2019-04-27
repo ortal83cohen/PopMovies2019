@@ -20,11 +20,12 @@ class MovieViewHolder(v: View, private val mContext: Context, private val mListe
         mPosition = position
         itemView.setOnClickListener { mListener.onMovieClick(item, position) }
         mItem = item
-        Picasso.with(mContext)
-            .load(IMAGE_BASE_URL_SMALL + mItem!!.poster_path!!)
-            .fit().centerCrop()
-            .into(mImageView)
-
+        mItem?.poster_path?.let {
+            Picasso.with(mContext)
+                .load(IMAGE_BASE_URL_SMALL + it)
+                .fit().centerCrop()
+                .into(mImageView)
+        }
         mTitleView.text = mItem!!.title
     }
 
