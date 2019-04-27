@@ -18,3 +18,9 @@ Code quality and ease of readability
 Application stability
 
 Feature completeness
+
+# Ignored:
+
+cache implementation
+
+ui/ux design

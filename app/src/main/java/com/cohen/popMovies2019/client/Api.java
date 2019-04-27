@@ -17,6 +17,7 @@ public class Api {
 
     public static final String PATH_MOVIES = "/3/discover/movie";
     public static final String PATH_MOVIE = "/3/movie/{movie_id}";
+    public static final String PATH_SEARCH = "/3/search/movie";
     private OkHttpClient mHttpClient;
 
     private ApiConfig mConfig;
@@ -74,6 +75,18 @@ public class Api {
         return service.movies(query);
     }
 
+    public Call<DiscoverResponse> search(String string) throws InvalidParameterException {
+
+        Service service = create();
+
+        ArrayMap<String, String> query = new ArrayMap<>();
+
+        query.put("query", string);
+        query.put("page", "1");
+
+        return service.search(query);
+    }
+
     public Call<MovieResponse> getMovie(int id) throws InvalidParameterException {
 
         Service service = create();
@@ -89,6 +102,9 @@ public class Api {
 
         @GET(PATH_MOVIE)
         Call<MovieResponse> movie(@Path("movie_id") int movieId);
+
+        @GET(PATH_SEARCH)
+        Call<DiscoverResponse> search(@QueryMap Map<String, String> query);
 
     }
 

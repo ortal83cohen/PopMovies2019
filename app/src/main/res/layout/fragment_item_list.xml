@@ -1,13 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.cohen.popMovies2019.EndlessRecyclerView
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:name="com.cohen.popMovies2019.ItemFragment"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        app:layoutManager="LinearLayoutManager"
-        tools:context=".ItemsListFragment"
-        tools:listitem="@layout/list_item"/>
+        android:layout_height="match_parent">
+
+    <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextView"
+            android:hint="@string/search_movie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    <com.cohen.popMovies2019.EndlessRecyclerView
+            android:id="@+id/endlessRecyclerView"
+            android:name="com.cohen.popMovies2019.ItemFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            app:layoutManager="LinearLayoutManager"
+            tools:context=".ItemsListFragment"
+            tools:listitem="@layout/list_item"/>
+</LinearLayout>

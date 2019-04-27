@@ -9,18 +9,18 @@ import androidx.recyclerview.widget.RecyclerView
 
 
 class MoviesRecyclerViewAdapter(
-    private val listViewModel: MoviesViewModel,
+    private val moviesViewModel: MoviesViewModel,
     private val activity: FragmentActivity
 
 ) : RecyclerView.Adapter<MovieViewHolder>() {
     private val listener = object : MovieViewHolder.Listener {
         override fun onMovieClick(movie: Movie, position: Int) {
-            listViewModel.setItem(movie)
+            moviesViewModel.setItem(movie)
         }
     }
 
     init {
-        listViewModel.getItems().observe(activity, Observer {
+        moviesViewModel.getItems().observe(activity, Observer {
             notifyDataSetChanged()
         })
 
@@ -33,13 +33,13 @@ class MoviesRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        listViewModel.getItems().value?.get(position)?.let {
+        moviesViewModel.getItems().value?.get(position)?.let {
             holder.assignItem(it, position)
         }
 
     }
 
-    override fun getItemCount(): Int = listViewModel.getItems().value?.size ?: 0
+    override fun getItemCount(): Int = moviesViewModel.getItems().value?.size ?: 0
 
 
 }

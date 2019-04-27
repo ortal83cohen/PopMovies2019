@@ -19,16 +19,22 @@ class MoviesViewModel : ViewModel() {
     private var items = MutableLiveData<ArrayList<Movie>>()
     private var selectedItem = MutableLiveData<Movie?>()
     private var page = MutableLiveData<Int>()
+    private var searchString = MutableLiveData<String>()
 
     private val mResultsCallback = object : RetrofitCallback<DiscoverResponse>() {
         override fun success(body: DiscoverResponse?, response: Response<DiscoverResponse>?) {
-            val oldItems = items.value ?: ArrayList()
+            val oldItems =
+                if (searchString.value.isNullOrEmpty()) {
+                    items.value ?: ArrayList()
+                } else {
+                    ArrayList()
+                }
             oldItems.addAll(response?.body()?.results as ArrayList<Movie>)
             items.postValue(oldItems)
         }
 
         override fun failure(errorBody: ResponseBody?, isOffline: Boolean) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
         }
 
 
@@ -49,6 +55,14 @@ class MoviesViewModel : ViewModel() {
         page.observe(appCompatActivity, androidx.lifecycle.Observer {
             mApi.getMovies(it, sdf.format(Date())).enqueue(mResultsCallback)
         })
+        searchString.observe(appCompatActivity, androidx.lifecycle.Observer {
+            if (it.isNullOrEmpty()) {
+                items.value = java.util.ArrayList()
+                page.postValue(1)
+            } else {
+                mApi.search(it).enqueue(mResultsCallback)
+            }
+        })
     }
 
     fun getItems(): LiveData<ArrayList<Movie>> {
@@ -65,6 +79,14 @@ class MoviesViewModel : ViewModel() {
 
     fun onLoadMore() {
         page.postValue(page.value?.plus(1) ?: 1)
+    }
+
+    fun setSearchString(string: String) {
+        searchString.postValue(string)
+    }
+
+    fun getSearchString(): LiveData<String> {
+       return searchString
     }
 
 }
