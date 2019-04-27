@@ -42,7 +42,7 @@ class ItemsListFragment : androidx.fragment.app.Fragment() {
 
         autoCompleteTextView?.apply {
             threshold = 1
-            setAdapter<ArrayAdapter<String>>(MyAdapter(context, android.R.layout.select_dialog_item, moviesViewModel))
+            setAdapter<ArrayAdapter<String>>(AutoCompleteAdapter(context, android.R.layout.select_dialog_item, moviesViewModel))
             addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
                     moviesViewModel.setSearchString(s.toString())

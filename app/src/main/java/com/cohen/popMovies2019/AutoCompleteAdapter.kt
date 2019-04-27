@@ -5,7 +5,7 @@ import android.widget.ArrayAdapter
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 
-open class MyAdapter(context: Context, resource: Int, moviesViewModel: MoviesViewModel) :
+open class AutoCompleteAdapter(context: Context, resource: Int, moviesViewModel: MoviesViewModel) :
     ArrayAdapter<String>(context, resource) {
 
     init {
