@@ -1,16 +1,16 @@
 package com.cohen.popMovies2019.data
 
-import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.cohen.popMovies2019.BuildConfig
-import com.cohen.popMovies2019.client.*
+import com.cohen.popMovies2019.client.Api
+import com.cohen.popMovies2019.client.DiscoverResponse
+import com.cohen.popMovies2019.client.RetrofitCallback
 import com.squareup.okhttp.ResponseBody
 import retrofit.Response
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
 
@@ -41,22 +41,14 @@ class MoviesViewModel : ViewModel() {
 
     }
 
-    fun init(appCompatActivity: AppCompatActivity) {
-        val cfg = ApiConfig()
-        cfg.isDebug = BuildConfig.DEBUG
-        cfg.logger = RetrofitLogger()
-        val httpClient = DefaultHttpClient(appCompatActivity)
-        httpClient.setConnectTimeout(30000, TimeUnit.MILLISECONDS)
-        httpClient.setReadTimeout(30000, TimeUnit.MILLISECONDS)
-        httpClient.interceptors().add(RetrofitLogger.create())
-        mApi = Api(cfg, httpClient)
+    fun init(api: Api, lifecycle: LifecycleOwner) {
         setItem(null)
         page.postValue(1)
         val sdf = SimpleDateFormat("yyyy-MM-dd")
-        page.observe(appCompatActivity, androidx.lifecycle.Observer {
-            mApi.getMovies(it, sdf.format(Date())).enqueue(mResultsCallback)
+        page.observe(lifecycle, androidx.lifecycle.Observer {
+            api.getMovies(it, sdf.format(Date())).enqueue(mResultsCallback)
         })
-        searchString.observe(appCompatActivity, androidx.lifecycle.Observer {
+        searchString.observe(lifecycle, androidx.lifecycle.Observer {
             if (it.isNullOrEmpty()) {
                 items.value = java.util.ArrayList()
                 page.postValue(1)
@@ -90,4 +82,7 @@ class MoviesViewModel : ViewModel() {
        return searchString
     }
 
+    fun getPage(): LiveData<Int> {
+        return page
+    }
 }

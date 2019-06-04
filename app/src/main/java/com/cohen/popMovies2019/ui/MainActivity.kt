@@ -5,8 +5,14 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.cohen.popMovies2019.data.MoviesViewModel
+import com.cohen.popMovies2019.BuildConfig
 import com.cohen.popMovies2019.R
+import com.cohen.popMovies2019.client.Api
+import com.cohen.popMovies2019.client.ApiConfig
+import com.cohen.popMovies2019.client.DefaultHttpClient
+import com.cohen.popMovies2019.client.RetrofitLogger
+import com.cohen.popMovies2019.data.MoviesViewModel
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
     lateinit var moviesViewModel: MoviesViewModel
@@ -18,7 +24,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         moviesViewModel = ViewModelProviders.of(this).get(MoviesViewModel::class.java)
-        moviesViewModel.init(this as AppCompatActivity)
+
+       val httpClient =   DefaultHttpClient(this)
+        httpClient.apply {
+            setConnectTimeout(30000, TimeUnit.MILLISECONDS)
+            setReadTimeout(30000, TimeUnit.MILLISECONDS)
+            interceptors().add(RetrofitLogger.create())
+        }
+        val cfg = ApiConfig()
+        cfg.isDebug = BuildConfig.DEBUG
+        cfg.logger = RetrofitLogger()
+        val api = Api(cfg, httpClient)
+        moviesViewModel.init(api, this)
         moviesViewModel.getItem().observe(this, Observer {
             if (it == null) {
                 setListMode()
