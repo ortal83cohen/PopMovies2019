@@ -8,20 +8,8 @@ import androidx.lifecycle.ViewModelProviders
 
 class MainActivity : AppCompatActivity() {
     lateinit var moviesViewModel: MoviesViewModel
-    private val detailFragment: DetailsFragment  by lazy {
-        if (supportFragmentManager.findFragmentByTag("DetailsFragment") != null) {
-            supportFragmentManager.findFragmentByTag("DetailsFragment") as DetailsFragment
-        } else {
-            DetailsFragment.newInstance()
-        }
-    }
-    private val itemsListFragment: ItemsListFragment  by lazy {
-        if (supportFragmentManager.findFragmentByTag("ItemsListFragment") != null) {
-            supportFragmentManager.findFragmentByTag("ItemsListFragment") as ItemsListFragment
-        } else {
-            ItemsListFragment.newInstance()
-        }
-    }
+    private val detailFragment = DetailsFragment.newInstance()
+    private val itemsListFragment = ItemsListFragment.newInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,24 +38,29 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setListMode() {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragment_container, itemsListFragment, "itemsListFragment")
-        transaction.commit()
-        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        if (!itemsListFragment.isVisible) {
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.fragment_container, itemsListFragment, LIST_FRAGMENT)
+            transaction.commit()
+            supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        }
     }
 
     private fun setDetailMode() {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragment_container, detailFragment, "detailFragment")
+        transaction.add(R.id.fragment_container, detailFragment, DETAILS_FRAGMENT)
+        transaction.addToBackStack(DETAILS_FRAGMENT)
         transaction.commit()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun onBackPressed() {
-        if (detailFragment.isVisible) {
             moviesViewModel.setItem(null)
-        } else {
             super.onBackPressed()
-        }
+    }
+
+    companion object {
+        const val DETAILS_FRAGMENT = "detailFragment"
+        const val LIST_FRAGMENT = "itemsListFragment"
     }
 }
