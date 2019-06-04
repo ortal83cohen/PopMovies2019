@@ -1,10 +1,12 @@
-package com.cohen.popMovies2019
+package com.cohen.popMovies2019.ui
 
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.cohen.popMovies2019.data.MoviesViewModel
+import com.cohen.popMovies2019.R
 
 class MainActivity : AppCompatActivity() {
     lateinit var moviesViewModel: MoviesViewModel
@@ -40,7 +42,10 @@ class MainActivity : AppCompatActivity() {
     private fun setListMode() {
         if (!itemsListFragment.isVisible) {
             val transaction = supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.fragment_container, itemsListFragment, LIST_FRAGMENT)
+            transaction.replace(
+                R.id.fragment_container, itemsListFragment,
+                LIST_FRAGMENT
+            )
             transaction.commit()
             supportActionBar?.setDisplayHomeAsUpEnabled(false)
         }
@@ -48,7 +53,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun setDetailMode() {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.add(R.id.fragment_container, detailFragment, DETAILS_FRAGMENT)
+        transaction.add(
+            R.id.fragment_container, detailFragment,
+            DETAILS_FRAGMENT
+        )
         transaction.addToBackStack(DETAILS_FRAGMENT)
         transaction.commit()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

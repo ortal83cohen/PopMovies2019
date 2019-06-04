@@ -1,8 +1,9 @@
-package com.cohen.popMovies2019;
+package com.cohen.popMovies2019.ui;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import androidx.recyclerview.widget.RecyclerView;
+import com.cohen.popMovies2019.R;
 
 
 public class EndlessRecyclerView extends RecyclerView {

@@ -1,9 +1,10 @@
-package com.cohen.popMovies2019
+package com.cohen.popMovies2019.data
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.cohen.popMovies2019.BuildConfig
 import com.cohen.popMovies2019.client.*
 import com.squareup.okhttp.ResponseBody
 import retrofit.Response

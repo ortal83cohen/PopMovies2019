@@ -1,4 +1,4 @@
-package com.cohen.popMovies2019;
+package com.cohen.popMovies2019.ui;
 
 
 import android.view.ViewGroup;

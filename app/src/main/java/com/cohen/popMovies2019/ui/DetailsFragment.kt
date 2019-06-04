@@ -1,4 +1,4 @@
-package com.cohen.popMovies2019
+package com.cohen.popMovies2019.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
+import com.cohen.popMovies2019.data.MoviesViewModel
+import com.cohen.popMovies2019.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_details.*
 

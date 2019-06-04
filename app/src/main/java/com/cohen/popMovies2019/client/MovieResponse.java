@@ -1,7 +1,7 @@
 package com.cohen.popMovies2019.client;
 
 
-import com.cohen.popMovies2019.Movie;
+import com.cohen.popMovies2019.data.Movie;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.cohen.popMovies2019
+package com.cohen.popMovies2019.data
 
 
 import android.os.Parcel

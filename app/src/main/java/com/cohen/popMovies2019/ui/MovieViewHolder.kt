@@ -1,4 +1,4 @@
-package com.cohen.popMovies2019
+package com.cohen.popMovies2019.ui
 
 
 import android.content.Context
@@ -6,6 +6,8 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.cohen.popMovies2019.R
+import com.cohen.popMovies2019.data.Movie
 import com.squareup.picasso.Picasso
 
 class MovieViewHolder(v: View, private val mContext: Context, private val mListener: Listener) :

@@ -1,9 +1,10 @@
-package com.cohen.popMovies2019
+package com.cohen.popMovies2019.ui
 
 import android.content.Context
 import android.widget.ArrayAdapter
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import com.cohen.popMovies2019.data.MoviesViewModel
 
 open class AutoCompleteAdapter(context: Context, resource: Int, moviesViewModel: MoviesViewModel) :
     ArrayAdapter<String>(context, resource) {

@@ -1,5 +1,6 @@
-package com.cohen.popMovies2019
+package com.cohen.popMovies2019.ui
 
+import android.R
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,6 +12,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.cohen.popMovies2019.data.MoviesViewModel
 import kotlinx.android.synthetic.main.fragment_item_list.*
 
 
@@ -22,7 +24,7 @@ class ItemsListFragment : androidx.fragment.app.Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_item_list, container, false)
+        val view = inflater.inflate(com.cohen.popMovies2019.R.layout.fragment_item_list, container, false)
 
         moviesViewModel = ViewModelProviders.of(activity!!).get(MoviesViewModel::class.java)
 
@@ -36,13 +38,20 @@ class ItemsListFragment : androidx.fragment.app.Fragment() {
             setOnLoadMoreListener {
                 moviesViewModel.onLoadMore()
             }
-            init(LinearLayoutManager(context), MoviesRecyclerViewAdapter(moviesViewModel, activity!!), 4)
+            init(LinearLayoutManager(context),
+                MoviesRecyclerViewAdapter(moviesViewModel, activity!!), 4)
             setHasMoreData(true)
         }
 
         autoCompleteTextView?.apply {
             threshold = 1
-            setAdapter<ArrayAdapter<String>>(AutoCompleteAdapter(context, android.R.layout.select_dialog_item, moviesViewModel))
+            setAdapter<ArrayAdapter<String>>(
+                AutoCompleteAdapter(
+                    context,
+                    R.layout.select_dialog_item,
+                    moviesViewModel
+                )
+            )
             addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
                     moviesViewModel.setSearchString(s.toString())

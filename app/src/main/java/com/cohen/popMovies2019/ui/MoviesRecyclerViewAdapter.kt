@@ -1,4 +1,4 @@
-package com.cohen.popMovies2019
+package com.cohen.popMovies2019.ui
 
 
 import android.view.LayoutInflater
@@ -6,6 +6,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
+import com.cohen.popMovies2019.data.Movie
+import com.cohen.popMovies2019.data.MoviesViewModel
+import com.cohen.popMovies2019.R
 
 
 class MoviesRecyclerViewAdapter(

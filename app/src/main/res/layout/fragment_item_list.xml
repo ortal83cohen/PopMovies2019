@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-    <com.cohen.popMovies2019.EndlessRecyclerView
+    <com.cohen.popMovies2019.ui.EndlessRecyclerView
             android:id="@+id/endlessRecyclerView"
             android:name="com.cohen.popMovies2019.ItemFragment"
             android:layout_width="match_parent"
@@ -21,6 +21,6 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             app:layoutManager="LinearLayoutManager"
-            tools:context=".ItemsListFragment"
+            tools:context=".ui.ItemsListFragment"
             tools:listitem="@layout/list_item"/>
 </LinearLayout>
